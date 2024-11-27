@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reflections</title>
+    <title>Archive - Reflections</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -21,14 +21,25 @@
             text-decoration: none;
             color: #555;
         }
+        .archive-list {
+            list-style: none;
+            padding: 0;
+        }
+        .archive-item {
+            margin: 1rem 0;
+            display: flex;
+            align-items: baseline;
+        }
         .entry-date {
-            font-weight: bold;
-            margin-top: 2rem;
+            min-width: 150px;
             color: #666;
         }
-        .entry-content {
-            margin: 1rem 0 2rem;
-            white-space: pre-wrap;
+        .entry-title {
+            text-decoration: none;
+            color: #333;
+        }
+        .entry-title:hover {
+            text-decoration: underline;
         }
         footer {
             margin-top: 3rem;
@@ -40,7 +51,7 @@
     </style>
 </head>
 <body>
-    <h1>Reflections</h1>
+    <h1>Archive</h1>
     
     <nav>
         <a href="index.html">Home</a>
@@ -48,17 +59,17 @@
     </nav>
 
     <main>
-        <article class="entry">
-            <div class="entry-date">November 27, 2024</div>
-            <div class="entry-content">
-                Your content goes here...
-You can write multiple paragraphs.
-
-Left align
-
-Akanksha
-            </div>
-        </article>
+        <ul class="archive-list">
+            
+            <li class="archive-item">
+                <span class="entry-date">November 27, 2024</span>
+                <a href="entries/hello-world.html" class="entry-title">Hello World</a>
+            </li>
+            <li class="archive-item">
+                <span class="entry-date">November 27, 2024</span>
+                <a href="entries/your-entry-title.html" class="entry-title">Your Entry Title</a>
+            </li>
+        </ul>
     </main>
 
     <footer>
