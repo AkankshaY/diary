@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Diary</title>
+    <style>
+        /* All previous styles remain the same until footer */
+        :root[data-theme="light"] {
+            --background: #fafafa;
+            --card-background: white;
+            --text: #333;
+            --text-muted: #666;
+            --border: #eee;
+            --border-muted: #ddd;
+            --toggle-icon: "☾";
+        }
+        
+        :root[data-theme="dark"] {
+            --background: #1a1a1a;
+            --card-background: #2a2a2a;
+            --text: #e0e0e0;
+            --text-muted: #999;
+            --border: #3a3a3a;
+            --border-muted: #404040;
+            --toggle-icon: "☼";
+        }
+
+        body {
+            font-family: "Georgia", serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-muted);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .entry {
+            margin-bottom: 3rem;
+            background: var(--card-background);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .entry-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .entry-content {
+            margin: 0;
+        }
+
+        nav {
+            margin: 2rem 0;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-muted);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+        }
+
+        #theme-toggle:hover {
+            opacity: 1;
+            background: var(--border);
+        }
+
+        #theme-toggle::after {
+            content: var(--toggle-icon);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .entry {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Daily Reflections</h1>
+        <button id="theme-toggle" aria-label="Toggle theme"></button>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Archive</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <main>
+        <article class="entry">
+            <div class="entry-date">November 27, 2024</div>
+            <div class="entry-content">
+                <p>Today marks the beginning of my digital journal. I've decided to document my daily thoughts and experiences in this minimalist format, inspired by the clean aesthetics of gwern.net. This space will serve as both a personal archive and a way to share my journey.</p>
+            </div>
+        </article>
+
+        <article class="entry">
+            <div class="entry-date">November 26, 2024</div>
+            <div class="entry-content">
+                <p>The autumn leaves have finally settled, creating a carpet of warm colors beneath my feet during my morning walk. I spent the afternoon reading "The Psychology of Time" and contemplating how our perception of time shifts with age.</p>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2024 Akanksha Yadav. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Set initial theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
