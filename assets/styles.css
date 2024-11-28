@@ -35,7 +35,6 @@ body {
     background: var(--background);
     color: var(--text);
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 1.125rem;
 }
 
 /* Header */
@@ -44,9 +43,10 @@ header {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: normal;
-    margin-bottom: 2rem;
+    margin: 0;
+    margin-bottom: 1rem;
     color: var(--text);
 }
 
@@ -57,8 +57,7 @@ nav {
 nav a {
     color: var(--text);
     text-decoration: none;
-    margin-right: 2rem;
-    font-size: 1.125rem;
+    margin-right: 1rem;
 }
 
 nav a:hover {
@@ -67,19 +66,19 @@ nav a:hover {
 
 /* Entry styles */
 .entry {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .entry-date {
     color: var(--text-muted);
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
 }
 
 .entry-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: normal;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: var(--text);
 }
 
@@ -97,7 +96,6 @@ nav a:hover {
 .archive-item {
     margin-bottom: 1rem;
     display: flex;
-    gap: 1.5rem;
     align-items: baseline;
 }
 
@@ -112,9 +110,9 @@ nav a:hover {
 
 /* Footer */
 footer {
-    margin-top: 4rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-muted);
     color: var(--text-muted);
     font-size: 0.9rem;
     text-align: center;
