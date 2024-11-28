@@ -9,12 +9,17 @@ class BlogManager:
     def __init__(self):
         # Set fixed directory path
         self.blog_dir = Path("/Users/akankshayadav/diary")
-        self.entries_dir = self.blog_dir / 'entries'
-        self.posts_dir = self.blog_dir / 'posts'
+        self.entries_dir = self.blog_dir / 'entries'  # Keep using entries/ directory
+        self.posts_dir = self.blog_dir / 'posts'      # For source text files
         
         # Create necessary directories if they don't exist
         self.entries_dir.mkdir(exist_ok=True)
         self.posts_dir.mkdir(exist_ok=True)
+        
+        # Add .nojekyll file to prevent Jekyll processing
+        nojekyll_file = self.blog_dir / '.nojekyll'
+        if not nojekyll_file.exists():
+            nojekyll_file.touch()
         
         # Load or create entries database
         self.db_file = self.blog_dir / 'entries.json'
@@ -23,10 +28,6 @@ class BlogManager:
                 self.entries = json.load(f)
         else:
             self.entries = []
-            
-        # Ensure we're in the correct directory
-        if not self.blog_dir.exists():
-            raise RuntimeError(f"Blog directory not found at {self.blog_dir}")
 
     def process_entry_file(self, file_path):
         """Process an entry file and create blog post"""
@@ -89,6 +90,7 @@ class BlogManager:
         # Update index and archive pages
         self._update_index_page()
         self._update_archive_page()
+        print("Updated index.html and archive.html")
 
     def _create_entry_html(self, title, date, content):
         return f'''<!DOCTYPE html>
