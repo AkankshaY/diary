@@ -96,7 +96,6 @@ nav a:hover {
 
 .entry-list .entry-title {
     color: var(--text);
-    text-decoration: none;
 }
 
 .entry-list a {
