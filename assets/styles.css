@@ -95,8 +95,17 @@ nav a:hover {
 }
 
 .entry-list .entry-title {
-    font-size: 1rem;
-    margin-bottom: 0;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.entry-list a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.entry-title:hover {
+    text-decoration: underline;
 }
 
 footer {
