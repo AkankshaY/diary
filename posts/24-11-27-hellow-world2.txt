@@ -1,7 +1,6 @@
 ---
 Hello World
 ---
-Your content goes here...
 You can write multiple paragraphs.
 
 Left align
