@@ -281,9 +281,10 @@ footer {
         entries_html = ''
         for entry in self.entries:
             entries_html += f'''
-            <div class="archive-item">
-                <span class="entry-date">{entry['date']}</span>
-                <a href="entries/{entry['slug']}.html" class="archive-title">{entry['title']}</a>
+               <li class="entry-item">
+                  <span class="entry-date">{entry['date']}</span>
+                  <a href="entries/{entry['slug']}.html" class="archive-title">{entry['title']}</a>
+               </li>
             </div>'''
 
         archive_html = f'''<!DOCTYPE html>
@@ -306,7 +307,7 @@ footer {
     </header>
 
     <main>
-        <div class="archive-list">
+        <div class="entry-list">
             {entries_html}
         </div>
     </main>
