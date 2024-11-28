@@ -48,7 +48,11 @@ class BlogManager:
     color: #333;
 }
 
-nav a, a {
+nav {
+    margin: 2rem 0;
+}
+
+nav a {
     margin-right: 1rem;
     text-decoration: none;
     color: #555;
@@ -65,44 +69,115 @@ nav a, a {
     white-space: pre-wrap;
 }
 
+[role="main"] {
+    margin: 2rem 0;
+}
+
 footer {
     margin-top: 3rem;
     padding-top: 1rem;
     border-top: 1px solid #eee;
     color: #666;
     font-size: 0.9rem;
-}
-
-/* Archive specific styles */
-.archive-list {
-    list-style: none;
-    padding: 0;
-}
-
-.archive-item {
-    margin: 1rem 0;
-    display: flex;
-    align-items: baseline;
-}
-
-.entry-title {
-    text-decoration: none;
-    color: #333;
-}
-
-.entry-title:hover {
-    text-decoration: underline;
-}
-
-/* Main content area */
-[role="main"] {
-    margin: 2rem 0;
-}
-
-/* Headers */
-h1, h2 {
-    color: #333;
 }'''
+
+    def _create_entry_html(self, title, date, content):
+        return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+    <h1>Reflections</h1>
+    
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="../archive.html">Archive</a>
+    </nav>
+
+    <div role="main">
+        <div class="entry-date">{date}</div>
+        <div class="entry-content">{content}</div>
+    </div>
+
+    <footer>© {datetime.now().year} Akanksha Yadav. All rights reserved.</footer>
+</body>
+</html>'''
+
+    def _update_index_page(self):
+        """Update the index page with the most recent entry"""
+        if not self.entries:
+            return
+        
+        latest = self.entries[0]
+        index_html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflections</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <h1>Reflections</h1>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Archive</a>
+    </nav>
+
+    <div role="main">
+        <div class="entry-date">{latest['date']}</div>
+        <h2 class="entry-title">{latest['title']}</h2>
+        <div class="entry-content">{latest['content']}</div>
+    </div>
+
+    <footer>© {datetime.now().year} Akanksha Yadav. All rights reserved.</footer>
+</body>
+</html>'''
+        
+        with open(self.blog_dir / 'index.html', 'w') as f:
+            f.write(index_html)
+
+    def _update_archive_page(self):
+        """Update the archive page with all entries"""
+        entries_html = ''
+        for entry in self.entries:
+            entries_html += f'''
+        <div class="archive-item">
+            <span class="entry-date">{entry['date']}</span>
+            <a href="entries/{entry['slug']}.html" class="entry-title">{entry['title']}</a>
+        </div>'''
+
+        archive_html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive - Reflections</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <h1>Archive</h1>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Archive</a>
+    </nav>
+
+    <div role="main">
+        {entries_html}
+    </div>
+
+    <footer>© {datetime.now().year} Akanksha Yadav. All rights reserved.</footer>
+</body>
+</html>'''
+        
+        with open(self.blog_dir / 'archive.html', 'w') as f:
+            f.write(archive_html)
 
     def process_entry_file(self, file_path):
         """Process an entry file and create blog post"""
@@ -166,115 +241,6 @@ h1, h2 {
         self._update_index_page()
         self._update_archive_page()
         print("Updated index.html and archive.html")
-
-    def _create_entry_html(self, title, date, content):
-        return f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <link rel="stylesheet" href="../assets/styles.css">
-</head>
-<body>
-<div>
-
-# {title}
-
-[Home](../index.html) [Archive](../archive.html)
-
-</div>
-
-::::: {{role="main"}}
-::: entry-date
-{date}
-:::
-
-::: entry-content
-{content}
-:::
-:::::
-
-© {datetime.now().year} Akanksha Yadav. All rights reserved.
-</body>
-</html>'''
-
-    def _update_index_page(self):
-        """Update the index page with the most recent entry"""
-        if not self.entries:
-            return
-        
-        latest = self.entries[0]
-        index_html = f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reflections</title>
-    <link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
-<div>
-
-# Reflections
-
-[Home](index.html) [Archive](archive.html)
-
-</div>
-
-::::: {{role="main"}}
-::: entry-date
-{latest['date']}
-:::
-
-## {latest['title']} {{#{latest['slug']} .entry-title}}
-
-::: entry-content
-{latest['content']}
-:::
-:::::
-
-© {datetime.now().year} Akanksha Yadav. All rights reserved.
-</body>
-</html>'''
-        
-        with open(self.blog_dir / 'index.html', 'w') as f:
-            f.write(index_html)
-
-    def _update_archive_page(self):
-        """Update the archive page with all entries"""
-        entries_html = ''
-        for entry in self.entries:
-            entries_html += f'''
--   [{entry['date']}]{{.entry-date}} [{entry['title']}](entries/{entry['slug']}.html){{.entry-title}}'''
-
-        archive_html = f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive - Reflections</title>
-    <link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
-<div>
-
-# Archive
-
-[Home](index.html) [Archive](archive.html)
-
-</div>
-
-::: {{role="main"}}
-{entries_html}
-:::
-
-© {datetime.now().year} Akanksha Yadav. All rights reserved.
-</body>
-</html>'''
-        
-        with open(self.blog_dir / 'archive.html', 'w') as f:
-            f.write(archive_html)
 
 def main():
     if len(sys.argv) != 2:
