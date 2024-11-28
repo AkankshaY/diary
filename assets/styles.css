@@ -77,7 +77,7 @@ nav a:hover {
 }
 
 /* Archive specific styles */
-.entry-list {
+.entry-list div {
     list-style: none;
     padding: 0;
 }
@@ -104,8 +104,9 @@ nav a:hover {
     text-decoration: none;
 }
 
-.entry-list .entry-title:hover {
+.entry-list div:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 footer {
