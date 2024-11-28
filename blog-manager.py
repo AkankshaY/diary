@@ -7,7 +7,7 @@ import sys
 
 class BlogManager:
     def __init__(self):
-        # Set fixed directory path
+        # Existing initialization code remains the same
         self.blog_dir = Path("/Users/akankshayadav/diary")
         self.entries_dir = self.blog_dir / 'entries'
         self.posts_dir = self.blog_dir / 'posts'
@@ -39,51 +39,144 @@ class BlogManager:
 
     def _get_css_content(self):
         """Return the content of the CSS file"""
-        return '''body {
-    font-family: system-ui, -apple-system, sans-serif;
+        return '''
+:root[data-theme="light"] {
+    --background: #fafafa;
+    --card-background: white;
+    --text: #333;
+    --text-muted: #666;
+    --border: #eee;
+    --border-muted: #ddd;
+    --toggle-icon: "☾";
+}
+
+:root[data-theme="dark"] {
+    --background: #1a1a1a;
+    --card-background: #2a2a2a;
+    --text: #e0e0e0;
+    --text-muted: #999;
+    --border: #3a3a3a;
+    --border-muted: #404040;
+    --toggle-icon: "☼";
+}
+
+body {
+    font-family: "Georgia", serif;
     line-height: 1.6;
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    color: #333;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--background);
+    color: var(--text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 1rem;
 }
 
 nav {
-    margin: 2rem 0;
+    margin-bottom: 2rem;
 }
 
 nav a {
-    margin-right: 1rem;
+    color: var(--text);
     text-decoration: none;
-    color: #555;
+    margin-right: 1rem;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.entry {
+    margin-bottom: 3rem;
 }
 
 .entry-date {
-    font-weight: bold;
-    margin-top: 2rem;
-    color: #666;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.entry-title {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-bottom: 1rem;
+    color: var(--text);
 }
 
 .entry-content {
-    margin: 1rem 0 2rem;
+    margin: 0;
+    line-height: 1.8;
     white-space: pre-wrap;
-}
-
-[role="main"] {
-    margin: 2rem 0;
 }
 
 footer {
     margin-top: 3rem;
     padding-top: 1rem;
-    border-top: 1px solid #eee;
-    color: #666;
+    border-top: 1px solid var(--border-muted);
+    color: var(--text-muted);
     font-size: 0.9rem;
+    text-align: center;
+}
+
+#theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+#theme-toggle:hover {
+    opacity: 1;
+    background: var(--border);
+}
+
+#theme-toggle::after {
+    content: var(--toggle-icon);
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+}
+
+.archive-item {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: baseline;
+}
+
+.archive-title {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.archive-title:hover {
+    text-decoration: underline;
 }'''
 
     def _create_entry_html(self, title, date, content):
         return f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,19 +184,40 @@ footer {
     <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body>
-    <h1>Reflections</h1>
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
     
-    <nav>
-        <a href="../index.html">Home</a>
-        <a href="../archive.html">Archive</a>
-    </nav>
+    <header>
+        <h1>Reflections</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../archive.html">Archive</a>
+        </nav>
+    </header>
 
-    <div role="main">
-        <div class="entry-date">{date}</div>
-        <div class="entry-content">{content}</div>
-    </div>
+    <main>
+        <article class="entry">
+            <div class="entry-date">{date}</div>
+            <h2 class="entry-title">{title}</h2>
+            <div class="entry-content">{content}</div>
+        </article>
+    </main>
 
-    <footer>© {datetime.now().year} Akanksha Yadav. All rights reserved.</footer>
+    <footer>
+        <p>© {datetime.now().year} Akanksha Yadav. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', () => {{
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }});
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
 </body>
 </html>'''
 
@@ -114,7 +228,7 @@ footer {
         
         latest = self.entries[0]
         index_html = f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,20 +236,40 @@ footer {
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <h1>Reflections</h1>
-    
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="archive.html">Archive</a>
-    </nav>
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
 
-    <div role="main">
-        <div class="entry-date">{latest['date']}</div>
-        <h2 class="entry-title">{latest['title']}</h2>
-        <div class="entry-content">{latest['content']}</div>
-    </div>
+    <header>
+        <h1>Reflections</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="archive.html">Archive</a>
+        </nav>
+    </header>
 
-    <footer>© {datetime.now().year} Akanksha Yadav. All rights reserved.</footer>
+    <main>
+        <article class="entry">
+            <div class="entry-date">{latest['date']}</div>
+            <h2 class="entry-title">{latest['title']}</h2>
+            <div class="entry-content">{latest['content']}</div>
+        </article>
+    </main>
+
+    <footer>
+        <p>© {datetime.now().year} Akanksha Yadav. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', () => {{
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }});
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
 </body>
 </html>'''
         
@@ -147,13 +281,13 @@ footer {
         entries_html = ''
         for entry in self.entries:
             entries_html += f'''
-        <div class="archive-item">
-            <span class="entry-date">{entry['date']}</span>
-            <a href="entries/{entry['slug']}.html" class="entry-title">{entry['title']}</a>
-        </div>'''
+            <div class="archive-item">
+                <span class="entry-date">{entry['date']}</span>
+                <a href="entries/{entry['slug']}.html" class="archive-title">{entry['title']}</a>
+            </div>'''
 
         archive_html = f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -161,23 +295,44 @@ footer {
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <h1>Archive</h1>
-    
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="archive.html">Archive</a>
-    </nav>
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
 
-    <div role="main">
-        {entries_html}
-    </div>
+    <header>
+        <h1>Reflections</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="archive.html">Archive</a>
+        </nav>
+    </header>
 
-    <footer>© {datetime.now().year} Akanksha Yadav. All rights reserved.</footer>
+    <main>
+        <div class="archive-list">
+            {entries_html}
+        </div>
+    </main>
+
+    <footer>
+        <p>© {datetime.now().year} Akanksha Yadav. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', () => {{
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }});
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
 </body>
 </html>'''
         
         with open(self.blog_dir / 'archive.html', 'w') as f:
             f.write(archive_html)
+
 
     def process_entry_file(self, file_path):
         """Process an entry file and create blog post"""
