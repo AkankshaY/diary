@@ -104,7 +104,7 @@ nav a:hover {
     text-decoration: none;
 }
 
-.entry-title:hover {
+.entry-list .entry-title:hover {
     text-decoration: underline;
 }
 
