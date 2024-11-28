@@ -98,6 +98,10 @@ nav a:hover {
     color: var(--text);
 }
 
+.entry-list .entry-title:hover {
+    text-decoration: underline;
+}
+
 .entry-list a {
     color: var(--text);
     text-decoration: none;
