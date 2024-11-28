@@ -12,20 +12,12 @@
     --background: #1a1a1a;
     --card-background: #2a2a2a;
     --text: #e0e0e0;
-    --text-muted: rgba(255, 255, 255, 0.6);
-    --border: #333;
+    --text-muted: #999;
+    --border: #3a3a3a;
     --border-muted: #404040;
     --toggle-icon: "☼";
 }
 
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Base styles */
 body {
     font-family: "Georgia", serif;
     line-height: 1.6;
@@ -37,9 +29,8 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Header */
 header {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 h1 {
@@ -47,7 +38,6 @@ h1 {
     font-weight: normal;
     margin: 0;
     margin-bottom: 1rem;
-    color: var(--text);
 }
 
 nav {
@@ -64,7 +54,6 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* Entry styles */
 .entry {
     margin-bottom: 3rem;
 }
@@ -85,30 +74,31 @@ nav a:hover {
 .entry-content {
     margin: 0;
     line-height: 1.8;
-    white-space: pre-wrap;
 }
 
-/* Archive styles */
-.archive-list {
-    margin-top: 2rem;
+/* Archive specific styles */
+.entry-list {
+    list-style: none;
+    padding: 0;
 }
 
-.archive-item {
+.entry-item {
     margin-bottom: 1rem;
     display: flex;
     align-items: baseline;
 }
 
-.archive-title {
-    color: var(--text);
-    text-decoration: none;
+.entry-list .entry-date {
+    width: 140px;
+    flex-shrink: 0;
+    margin-bottom: 0;
 }
 
-.archive-title:hover {
-    text-decoration: underline;
+.entry-list .entry-title {
+    font-size: 1rem;
+    margin-bottom: 0;
 }
 
-/* Footer */
 footer {
     margin-top: 3rem;
     padding-top: 1rem;
@@ -118,9 +108,8 @@ footer {
     text-align: center;
 }
 
-/* Theme toggle */
 #theme-toggle {
-    position: fixed;
+    position: absolute;
     top: 1rem;
     right: 1rem;
     background: none;
@@ -145,18 +134,12 @@ footer {
     content: var(--toggle-icon);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     body {
         padding: 1rem;
-        font-size: 1rem;
     }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    .entry-title {
-        font-size: 1.75rem;
+    
+    .entry-list .entry-date {
+        width: 120px;
     }
 }
