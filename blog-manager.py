@@ -285,7 +285,7 @@ footer {
                   <span class="entry-date">{entry['date']}</span>
                   <a href="entries/{entry['slug']}.html" class="archive-title">{entry['title']}</a>
                </li>
-            </div>'''
+            '''
 
         archive_html = f'''<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -417,7 +417,7 @@ def main():
             print('2. git commit -m "Update blog files"')
             print("3. git push origin main")
         else:
-            
+
             entry_file = sys.argv[1]
             if blog.process_entry_file(entry_file):
                 print("\nBlog updated successfully!")
