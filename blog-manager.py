@@ -406,16 +406,27 @@ def main():
     
     try:
         blog = BlogManager()
-        entry_file = sys.argv[1]
-        
-        if blog.process_entry_file(entry_file):
-            print("\nBlog updated successfully!")
+
+        if sys.argv[1] in ["--update", "-u"]:
+            # Just update the HTML files without creating new entry
+            blog._update_index_page()
+            blog._update_archive_page()
+            print("\nBlog files updated successfully!")
             print(f"\nNext steps:")
             print("1. git add .")
-            print('2. git commit -m "Add new entry: [Your Entry Title]"')
+            print('2. git commit -m "Update blog files"')
             print("3. git push origin main")
         else:
-            print("\nFailed to create entry. Please check the error message above.")
+            
+            entry_file = sys.argv[1]
+            if blog.process_entry_file(entry_file):
+                print("\nBlog updated successfully!")
+                print(f"\nNext steps:")
+                print("1. git add .")
+                print('2. git commit -m "Add new entry: [Your Entry Title]"')
+                print("3. git push origin main")
+            else:
+                print("\nFailed to create entry. Please check the error message above.")
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)
