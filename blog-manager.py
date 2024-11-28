@@ -9,12 +9,20 @@ class BlogManager:
     def __init__(self):
         # Set fixed directory path
         self.blog_dir = Path("/Users/akankshayadav/diary")
-        self.entries_dir = self.blog_dir / 'entries'  # Keep using entries/ directory
-        self.posts_dir = self.blog_dir / 'posts'      # For source text files
+        self.entries_dir = self.blog_dir / 'entries'
+        self.posts_dir = self.blog_dir / 'posts'
+        self.assets_dir = self.blog_dir / 'assets'
         
         # Create necessary directories if they don't exist
         self.entries_dir.mkdir(exist_ok=True)
         self.posts_dir.mkdir(exist_ok=True)
+        self.assets_dir.mkdir(exist_ok=True)
+        
+        # Create CSS file if it doesn't exist
+        self.css_file = self.assets_dir / 'styles.css'
+        if not self.css_file.exists():
+            with open(self.css_file, 'w') as f:
+                f.write(self._get_css_content())
         
         # Add .nojekyll file to prevent Jekyll processing
         nojekyll_file = self.blog_dir / '.nojekyll'
@@ -28,6 +36,73 @@ class BlogManager:
                 self.entries = json.load(f)
         else:
             self.entries = []
+
+    def _get_css_content(self):
+        """Return the content of the CSS file"""
+        return '''body {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: #333;
+}
+
+nav a, a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #555;
+}
+
+.entry-date {
+    font-weight: bold;
+    margin-top: 2rem;
+    color: #666;
+}
+
+.entry-content {
+    margin: 1rem 0 2rem;
+    white-space: pre-wrap;
+}
+
+footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Archive specific styles */
+.archive-list {
+    list-style: none;
+    padding: 0;
+}
+
+.archive-item {
+    margin: 1rem 0;
+    display: flex;
+    align-items: baseline;
+}
+
+.entry-title {
+    text-decoration: none;
+    color: #333;
+}
+
+.entry-title:hover {
+    text-decoration: underline;
+}
+
+/* Main content area */
+[role="main"] {
+    margin: 2rem 0;
+}
+
+/* Headers */
+h1, h2 {
+    color: #333;
+}'''
 
     def process_entry_file(self, file_path):
         """Process an entry file and create blog post"""
@@ -81,7 +156,7 @@ class BlogManager:
             'slug': slug,
             'content': content
         }
-        self.entries.insert(0, entry_data)  # Add to start of list
+        self.entries.insert(0, entry_data)
         
         # Save updated database
         with open(self.db_file, 'w') as f:
@@ -98,62 +173,29 @@ class BlogManager:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} - Reflections</title>
-    <style>
-        body {{
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            color: #333;
-        }}
-        nav {{
-            margin: 2rem 0;
-        }}
-        nav a {{
-            margin-right: 1rem;
-            text-decoration: none;
-            color: #555;
-        }}
-        .entry-date {{
-            font-weight: bold;
-            margin-top: 2rem;
-            color: #666;
-        }}
-        .entry-content {{
-            margin: 1rem 0 2rem;
-            white-space: pre-wrap;
-        }}
-        footer {{
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-            color: #666;
-            font-size: 0.9rem;
-        }}
-    </style>
+    <title>{title}</title>
+    <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body>
-    <h1>{title}</h1>
-    
-    <nav>
-        <a href="../index.html">Home</a>
-        <a href="../archive.html">Archive</a>
-    </nav>
+<div>
 
-    <main>
-        <article class="entry">
-            <div class="entry-date">{date}</div>
-            <div class="entry-content">
-                {content}
-            </div>
-        </article>
-    </main>
+# {title}
 
-    <footer>
-        © {datetime.now().year} Akanksha Yadav. All rights reserved.
-    </footer>
+[Home](../index.html) [Archive](../archive.html)
+
+</div>
+
+::::: {{role="main"}}
+::: entry-date
+{date}
+:::
+
+::: entry-content
+{content}
+:::
+:::::
+
+© {datetime.now().year} Akanksha Yadav. All rights reserved.
 </body>
 </html>'''
 
@@ -169,61 +211,30 @@ class BlogManager:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reflections</title>
-    <style>
-        body {{
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            color: #333;
-        }}
-        nav {{
-            margin: 2rem 0;
-        }}
-        nav a {{
-            margin-right: 1rem;
-            text-decoration: none;
-            color: #555;
-        }}
-        .entry-date {{
-            font-weight: bold;
-            margin-top: 2rem;
-            color: #666;
-        }}
-        .entry-content {{
-            margin: 1rem 0 2rem;
-            white-space: pre-wrap;
-        }}
-        footer {{
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-            color: #666;
-            font-size: 0.9rem;
-        }}
-    </style>
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <h1>Reflections</h1>
-    
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="archive.html">Archive</a>
-    </nav>
+<div>
 
-    <main>
-        <article class="entry">
-            <div class="entry-date">{latest['date']}</div>
-            <div class="entry-content">
-                {latest['content']}
-            </div>
-        </article>
-    </main>
+# Reflections
 
-    <footer>
-        © {datetime.now().year} Akanksha Yadav. All rights reserved.
-    </footer>
+[Home](index.html) [Archive](archive.html)
+
+</div>
+
+::::: {{role="main"}}
+::: entry-date
+{latest['date']}
+:::
+
+## {latest['title']} {{#{latest['slug']} .entry-title}}
+
+::: entry-content
+{latest['content']}
+:::
+:::::
+
+© {datetime.now().year} Akanksha Yadav. All rights reserved.
 </body>
 </html>'''
         
@@ -235,10 +246,7 @@ class BlogManager:
         entries_html = ''
         for entry in self.entries:
             entries_html += f'''
-            <li class="archive-item">
-                <span class="entry-date">{entry['date']}</span>
-                <a href="entries/{entry['slug']}.html" class="entry-title">{entry['title']}</a>
-            </li>'''
+-   [{entry['date']}]{{.entry-date}} [{entry['title']}](entries/{entry['slug']}.html){{.entry-title}}'''
 
         archive_html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -246,69 +254,22 @@ class BlogManager:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archive - Reflections</title>
-    <style>
-        body {{
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            color: #333;
-        }}
-        nav {{
-            margin: 2rem 0;
-        }}
-        nav a {{
-            margin-right: 1rem;
-            text-decoration: none;
-            color: #555;
-        }}
-        .archive-list {{
-            list-style: none;
-            padding: 0;
-        }}
-        .archive-item {{
-            margin: 1rem 0;
-            display: flex;
-            align-items: baseline;
-        }}
-        .entry-date {{
-            min-width: 150px;
-            color: #666;
-        }}
-        .entry-title {{
-            text-decoration: none;
-            color: #333;
-        }}
-        .entry-title:hover {{
-            text-decoration: underline;
-        }}
-        footer {{
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-            color: #666;
-            font-size: 0.9rem;
-        }}
-    </style>
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <h1>Archive</h1>
-    
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="archive.html">Archive</a>
-    </nav>
+<div>
 
-    <main>
-        <ul class="archive-list">
-            {entries_html}
-        </ul>
-    </main>
+# Archive
 
-    <footer>
-        © {datetime.now().year} Akanksha Yadav. All rights reserved.
-    </footer>
+[Home](index.html) [Archive](archive.html)
+
+</div>
+
+::: {{role="main"}}
+{entries_html}
+:::
+
+© {datetime.now().year} Akanksha Yadav. All rights reserved.
 </body>
 </html>'''
         

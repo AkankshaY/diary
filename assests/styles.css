@@ -1,0 +1,64 @@
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: #333;
+}
+
+nav a, a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #555;
+}
+
+.entry-date {
+    font-weight: bold;
+    margin-top: 2rem;
+    color: #666;
+}
+
+.entry-content {
+    margin: 1rem 0 2rem;
+    white-space: pre-wrap;
+}
+
+footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Archive specific styles */
+.archive-list {
+    list-style: none;
+    padding: 0;
+}
+
+.archive-item {
+    margin: 1rem 0;
+    display: flex;
+    align-items: baseline;
+}
+
+.entry-title {
+    text-decoration: none;
+    color: #333;
+}
+
+.entry-title:hover {
+    text-decoration: underline;
+}
+
+/* Main content area */
+[role="main"] {
+    margin: 2rem 0;
+}
+
+/* Headers */
+h1, h2 {
+    color: #333;
+}
