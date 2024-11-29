@@ -74,6 +74,11 @@ nav a:hover {
 .entry-content {
     margin: 0;
     line-height: 1.8;
+    white-space: pre-line;  /* Changed from pre-wrap to pre-line */
+}
+
+.entry-content p {
+    margin: 1.5rem 0;
 }
 
 /* Archive specific styles */
@@ -96,10 +101,7 @@ nav a:hover {
 
 .entry-list .entry-title {
     color: var(--text);
-}
-
-.entry-list .entry-title:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .entry-list a {
@@ -107,14 +109,22 @@ nav a:hover {
     text-decoration: none;
 }
 
+.archive-title:hover {
+    text-decoration: underline;
+}
 .entry-list div:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
 footer {
-    margin-top: 3rem;
-    padding-top: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 2rem;
+    right: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 0.1rem;
     border-top: 1px solid var(--border-muted);
     color: var(--text-muted);
     font-size: 0.9rem;
