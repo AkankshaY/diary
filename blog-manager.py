@@ -330,7 +330,6 @@ footer {
         <nav>
             <a href="index.html">Home</a>
             <a href="archive.html">Archive</a>
-            <div class="gcse-search"></div>
         </nav>
     </header>
 
