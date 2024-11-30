@@ -18,6 +18,12 @@
     --toggle-icon: "☼";
 }
 
+html, body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: "Georgia", serif;
     line-height: 1.6;
@@ -27,6 +33,9 @@ body {
     background: var(--background);
     color: var(--text);
     transition: background-color 0.3s ease, color 0.3s ease;
+    padding-bottom: 6rem; /* Space for footer */
+    position: relative;
+    min-height: 100vh;
 }
 
 header {
