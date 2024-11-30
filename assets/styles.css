@@ -126,6 +126,42 @@ nav a:hover {
     cursor: pointer;
 }
 
+.search-container {
+    display: inline-block;
+    margin-left: 1rem;
+    width: 200px;  /* Smaller fixed width */
+    vertical-align: middle;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 0.25rem 0.5rem;  /* Reduced padding to match nav height */
+    font-family: "Georgia", serif;  /* Match your site font */
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--background);
+    color: var(--text);
+    transition: border-color 0.3s ease;
+    line-height: 1.2;  /* Adjusted to match nav height */
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--text-muted);
+}
+
+#searchInput::placeholder {
+    color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+    .search-container {
+        max-width: 100%;
+    }
+}
+
+
 footer {
     position: absolute;
     bottom: 0;

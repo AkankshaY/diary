@@ -182,7 +182,7 @@ footer {
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0T7HV6YV9"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag(){{dataLayer.push(arguments);}}
   gtag('js', new Date());
 
   gtag('config', 'G-J0T7HV6YV9');
@@ -243,7 +243,7 @@ footer {
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0T7HV6YV9"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag(){{dataLayer.push(arguments);}}
   gtag('js', new Date());
 
   gtag('config', 'G-J0T7HV6YV9');
@@ -306,22 +306,22 @@ footer {
             '''
 
         archive_html = f'''<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J0T7HV6YV9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        <html lang="en" data-theme="dark">
+        <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0T7HV6YV9"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){{dataLayer.push(arguments);}}
+          gtag('js', new Date());
 
-  gtag('config', 'G-J0T7HV6YV9');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive - Reflections</title>
-    <link rel="stylesheet" href="assets/styles.css">
-</head>
+          gtag('config', 'G-J0T7HV6YV9');
+        </script>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Archive - Reflections</title>
+            <link rel="stylesheet" href="assets/styles.css">
+        </head>
 <body>
     <button id="theme-toggle" aria-label="Toggle theme"></button>
 
@@ -330,6 +330,7 @@ footer {
         <nav>
             <a href="index.html">Home</a>
             <a href="archive.html">Archive</a>
+            <div class="gcse-search"></div>
         </nav>
     </header>
 
@@ -342,6 +343,8 @@ footer {
     <footer>
         <p>© {datetime.now().year} Akanksha Yadav. All rights reserved.</p>
     </footer>
+
+    <script async src="https://cse.google.com/cse.js?cx=d1edfe92b739048ed"></script>
 
     <script>
         document.getElementById('theme-toggle').addEventListener('click', () => {{
