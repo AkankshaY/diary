@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Never admire quietly</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
+    
+    <header>
+        <h1>Reflections</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../archive.html">Archive</a>
+        </nav>
+    </header>
+
+    <main>
+        <article class="entry">
+            <div class="entry-date">November 30, 2024</div>
+            <h2 class="entry-title">Never admire quietly</h2>
+            <div class="entry-content">"If I admire something about someone, I tell them. We humans are so fragile. It's important we give people their flowers while they are still here. Never admire quietly" - Chimamanda Adichie
+
+I have tried my best to abide by this very honestly as a sincere attempt to bring out more of the things I admire into the world. (I urge you to too!)
+Fragile is not the word, blindedness is more like it - I feel "peculiarly good"/"different" is a quality hard to admit to oneself when it comes instinctively to the person but is not recognizably rare as such.
+There's a reach/field of view different sets of people can be bound to, honest admiration affords
+them your eyes and attention that have probably seen a completely different world than them. It can be empowering when such feedback allows the person to apply the right self corrective in the right direction!</div>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2024 Akanksha Yadav. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
