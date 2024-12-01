@@ -330,12 +330,10 @@ footer {
         <nav>
             <a href="index.html">Home</a>
             <a href="archive.html">Archive</a>
-            <div class="gcse-searchbox-only"></div>
         </nav>
     </header>
 
     <main>
-    <div class="gcse-searchresults-only"></div>
         <div class="entry-list">
             {entries_html}
         </div>
